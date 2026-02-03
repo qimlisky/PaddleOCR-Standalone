@@ -92,7 +92,7 @@ The executable will be placed in a folder called wrapper.dist.
 我按照上面的方法还额外安装了paddleocr，因为我Python脚本方式集成from paddleocr import PaddleOCR。也许是多余的
 
 我也是在编译后出现
-```output```
+```output
 Python: 3.12.12 | Initializing PaddleOCR...
 Error: Can not import paddle core while this file exists: OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddle\base\libpaddle.pyd
 Initialization failed:
@@ -107,7 +107,7 @@ Traceback (most recent call last):
   File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddle\base\__init__.py", line 38, in <module paddle.base>
   File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddle\base\backward.py", line 28, in <module paddle.base.backward>
   File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddle\base\core.py", line 267, in <module paddle.base.core>
-``````
+```
 才发现libpaddle.pyd没有import paddle core。通过AI才知道差dll。
 
 
