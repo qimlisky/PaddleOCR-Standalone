@@ -1,11 +1,3 @@
-<p align="center">
-  <p>
-      <img width="100%" src="./docs/images/Banner.png" alt="PaddleOCR Banner">
-<p align="center">
-    Now as a Standalone executable!
-    <br />
-  </p>
-</p>
 
 ## ℹ About
 
@@ -90,6 +82,33 @@ You can of course also compile the Standalone version yourself. For that you nee
     ```
 
 The executable will be placed in a folder called wrapper.dist.
+
+但是我在实际操作的时候出现了很多问题。我只会一点点python，大部分都是问的DeepSeek
+根据自己用的模块添加# nuitka-project: --include-package=xxx感觉就ok了。我是把用到的模块都列出来再添加的
+我在根据这个项目编译我自己修改的api程序，发现了编译的问题。
+1.需要手动移动envLib\site-packages\paddle\libs下的所有dll文件移动到编译好的\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\xxx.dist\paddle\libs  
+2.需要手动移动env\Lib\site-packages\nvidia\cudnn\bin到\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\xxx.dist\  
+
+我按照上面的方法还额外安装了paddleocr，因为我Python脚本方式集成from paddleocr import PaddleOCR。也许是多余的
+
+我也是在编译后出现
+```output```
+Python: 3.12.12 | Initializing PaddleOCR...
+Error: Can not import paddle core while this file exists: OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddle\base\libpaddle.pyd
+Initialization failed:
+Traceback (most recent call last):
+  File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\api.py", line 61, in <module>
+  File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddleocr\_pipelines\ocr.py", line 163, in __init__
+  File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddleocr\_pipelines\base.py", line 67, in __init__
+  File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddleocr\_pipelines\base.py", line 100, in _create_paddlex_pipeline
+  File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddleocr\_common_args.py", line 61, in prepare_common_init_args
+  File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddlex\utils\device.py", line 42, in get_default_device
+  File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddle\__init__.py", line 44, in <module paddle>
+  File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddle\base\__init__.py", line 38, in <module paddle.base>
+  File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddle\base\backward.py", line 28, in <module paddle.base.backward>
+  File "OCR\new\PaddleOCR-Standalone\PaddleOCR-Standalone\Wrappers\GPU\dist\api.dist\paddle\base\core.py", line 267, in <module paddle.base.core>
+``````
+才发现libpaddle.pyd没有import paddle core。通过AI才知道差dll。
 
 
 # PaddleOCR
