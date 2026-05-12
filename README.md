@@ -7,7 +7,43 @@ You can decide between installing it via the setup installer or just downloading
 The installer also allows you to add the install location to you path which allows you to use paddleocr from every location.
 
 For C++ executables (CPU and GPU version) check out the older v1.0.0 release and the release-2.9.1/custom branch.  
-  
+
+```
+
+# Compilation instructions
+# nuitka-project: --standalone
+
+# nuitka-project: --include-package-data=paddleocr
+# nuitka-project: --include-package-data=paddlex
+# nuitka-project: --include-package=flask
+# nuitka-project: --include-package=numpy
+# nuitka-project: --include-package=pandas
+# nuitka-project: --include-package=PIL
+
+# nuitka-project-if: {OS} == "Windows":
+#     nuitka-project: --output-filename=paddleocr
+# nuitka-project-if: {OS} == "Linux":
+#     nuitka-project: --output-filename=paddleocr.bin
+
+# nuitka-project: --include-distribution-metadata=imagesize
+# nuitka-project: --include-distribution-metadata=opencv-contrib-python
+# nuitka-project: --include-distribution-metadata=pyclipper
+# nuitka-project: --include-distribution-metadata=pypdfium2
+# nuitka-project: --include-distribution-metadata=shapely
+# nuitka-project: --include-data-dir=D:\AI\OCR\new\runtime\Lib\site-packages\paddle\libs=paddle\libs
+
+
+# Windows-specific metadata for the executable
+# nuitka-project-if: {OS} == "Windows":
+#     nuitka-project: --file-description="PaddleOCR Standalone Executable"
+#     nuitka-project: --file-version="1.3.2"
+#     nuitka-project: --product-name="PaddleOCR-GPU"
+#     nuitka-project: --product-version="1.3.2"
+#     nuitka-project: --copyright="timminator"
+#     nuitka-project: --windows-icon-from-ico=paddleocr.ico
+
+```
+
 ## Usage  
   
 If you installed PaddleOCR via the setup wizard and added it to your Path you can just open a terminal and run the following command:  
